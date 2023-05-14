@@ -16,17 +16,20 @@ class Webscraper():
         return soup
 
 
-    def soupParser(self, soup, tag=None, attib=None, strip=None, all='n'):
+    def soupParser(self, soup, tag, attib=None, strip=None, all='n'):
         if all.upper() != 'N':
-            element = soup.find_all(tag, class_= attib)
+            element = soup.find_all(name=tag, class_= attib)
         else:
-            element = soup.find(tag, class_= attib)
+            element = soup.find(name=tag, class_= attib)
 
-        if strip=='text':
-            element_val = element.text.strip()
-        elif strip=='src':
-            element_val = element[strip]
-        else:
-            element_val = element
+        try:
+            if strip=='text':
+                element_val = element.text.strip()
+            elif strip=='src':
+                element_val = element[strip]
+            else:
+                element_val = element
+        except:
+            element_val = None
 
         return element_val
